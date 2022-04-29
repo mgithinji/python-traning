@@ -1,4 +1,3 @@
 # python-traning
-Code for learning python
-- list1
-- list2
+
+Code from course, following the book, Automate the Boring Stuff with Python.
