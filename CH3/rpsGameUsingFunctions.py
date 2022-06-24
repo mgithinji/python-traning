@@ -29,9 +29,25 @@ def get_player_move():
 
     return move
 
-w = 0
-l = 0
-d = 0
+def evaluate_moves(p1_move, p2_move, stats):
+    if p1_move == p2_move:
+        stats['d'] += 1
+        print("Draw")
+    elif (p1_move == 's' and p2_move == 'p') or (p1_move == 'r' and p2_move == 's') or (p1_move == 'p' and p2_move == 'r'):
+        stats['w'] += 1
+        print("You win")
+    elif (p1_move == 'p' and p2_move == 's') or (p1_move == 's' and p2_move == 'r') or (p1_move == 'r' and p2_move == 'p'):
+        stats['l'] += 1
+        print("You lose")
+
+def print_statistics(stats):
+    w = stats['w']
+    l = stats['l']
+    d = stats['d']
+    print("Wins: {}, Losses: {}, Draws: {}".format(w, l, d))
+
+# dictionary to keep track of game statistics
+stats = {'w': 0, 'l': 0, 'd': 0}
 
 while True:
 
@@ -46,17 +62,6 @@ while True:
     print_moves(player_move, computer_move)
 
     # compare the moves of the player and computer
-    if player_move == computer_move:
-        d = d + 1 # incrementing the draw statistic; can also use d += 1
-        print("Draw")
-    elif (player_move == 's' and computer_move == 'p') or (player_move == 'r' and computer_move == 's') or (player_move == 'p' and computer_move == 'r'):
-        w = w + 1
-        print("You win")
-    elif (player_move == 'p' and computer_move == 's') or (player_move == 's' and computer_move == 'r') or (player_move == 'r' and computer_move == 'p'):
-        l = l + 1
-        print("You lose")
-    else:
-        print("Invalid move, select r, p, s, or q.")
+    evaluate_moves(p1_move=player_move, p2_move=computer_move, stats=stats)
 
-print("Wins: {}, Losses: {}, Draws: {}".format(w, l, d))
-
+print_statistics(stats)
